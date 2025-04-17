@@ -1,0 +1,175 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<style>
+    .filter-scroll-wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: flex; 
+        align-items: center; 
+    }
+
+    #filters {
+        display: flex;
+        flex-wrap: nowrap; 
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 70px;
+        margin-right: 0.7rem;
+        text-align: center;
+        opacity: 0.7;
+        white-space: nowrap;
+    }
+
+    .filter:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .filter p {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .tax-info {
+        display: none;
+    }
+
+    .tax-toggle-wrapper {
+        /* Styles for the toggle wrapper */
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 3rem;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        background: white;
+        white-space: nowrap; 
+    }
+
+    .toggle {
+        border: 1px solid black;
+    }
+    @media (max-width: 768px) {
+        .filter-scroll-wrapper {
+            flex-direction: column; 
+            align-items: stretch; 
+            padding-top: 4.5rem; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white; 
+            z-index: 1000;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 0;
+        }
+
+
+        .tax-toggle-wrapper {
+            justify-content: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); /* Little more darker shadow for mobile */
+          }
+
+        #filters {
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0; 
+        }
+
+        .filter {
+            flex: 0 0 auto;
+        }
+
+        .filter-scroll-wrapper::-webkit-scrollbar {
+            display: none;
+            
+        }
+
+        .tax-toggle-wrapper {
+            justify-content: center;
+            margin-bottom: 0rem;
+            padding: 1.7rem;
+        }
+        .mt-3 {
+            margin-top: 10.5rem !important;
+        }
+    }
+    /* Adjust listing size for mobile devices */
+@media (max-width: 768px) {
+    .listing-card.col {
+      width: 90%; /* Adjust this percentage as needed for mobile width */
+      max-width: none; /* Remove any max-width that might interfere on mobile */
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 1.5rem; /* Adjust vertical spacing for mobile */
+    }
+  
+    /* If you had specific column counts for mobile that need overriding */
+    .row-cols-sm-1 > .col {
+      width: 100%; /* Ensure they take full width in a single column layout */
+    }
+  }
+</style>
+
+<div class="filter-scroll-wrapper">
+
+    <div id="filters">
+        <div class="filter"><div><i class="fa-solid fa-fire"></i></div><p>Trending</p></div>
+        <div class="filter"><div><i class="fa-solid fa-person-booth"></i></div><p>Rooms</p></div>
+        <div class="filter"><div><i class="fa-solid fa-building-wheat"></i></div><p>Iconic cities</p></div>
+        <div class="filter"><div><i class="fa-solid fa-mountain-sun"></i></div><p>Mountain</p></div>
+        <div class="filter"><div><i class="fa-solid fa-chess-rook"></i></div><p>Castles</p></div>
+        <div class="filter"><div><i class="fa-solid fa-person-swimming"></i></div><p>Amazing Pools</p></div>
+        <div class="filter"><div><i class="fa-solid fa-tree"></i></div><p>Camping</p></div>
+        <div class="filter"><div><i class="fa-solid fa-cow"></i></div><p>Farms</p></div>
+        <div class="filter"><div><i class="fa-solid fa-snowman"></i></div><p>Arctic</p></div>
+        <div class="filter"><div><i class="fa-solid fa-sailboat"></i></div><p>Boats</p></div>
+    </div>
+
+    <div class="tax-toggle-wrapper">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input toggle" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3" style="margin-top: 6rem;"> <% for(let listing of allListings){ %>
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height: 20rem" />
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b> <br>
+                        <i><%= listing.country %>, <%= listing.location %></i><br>
+                        &#8377;<%= listing.price.toLocaleString("en-in") %> / Night
+                        <i class="tax-info">&nbsp;+18% GST</i>
+                    </p>
+                </div>
+            </div>
+        </a>
+    <% } %>
+</div>
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    taxSwitch.addEventListener("click", () => {
+        let taxInfo = document.getElementsByClassName("tax-info");
+        for (let info of taxInfo) {
+            info.style.display = info.style.display !== "inline" ? "inline" : "none";
+        }
+    });
+</script>

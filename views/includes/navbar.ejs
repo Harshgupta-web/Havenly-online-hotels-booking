@@ -1,0 +1,188 @@
+<style>
+  .search-btn {
+    color: #fff;
+    background-color: #da83e5;
+    border-radius: 23px;
+    padding: 0 1rem 0 1rem;
+  }
+
+  .search-btn:hover {
+    color: #fff;
+    background-color: #AA60C8;
+  }
+
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+
+  .search-input {
+    border-radius: 23px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    border: 1px solid black;
+  }
+
+  #add-listing{
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 23px;
+    border: solid black 1px;
+  }
+
+  #add-listing:hover {
+    background-color: #00000014;
+    border-radius: 23px;
+  }
+
+  .mobile-auth-links a{
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.749);
+    margin-left: 1.2rem;
+  
+  }
+
+  .mobile-auth-links a:hover{
+    color: black;
+  }
+
+  .mobile-menu-section {
+    display: none;
+  }
+
+  .search-input {
+    border-radius: 23px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    border: 1px solid black;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Darker shadow */
+  }
+  
+  /* A more pronounced dark shadow */
+  .search-input {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); /* Offset and blur */
+  }
+  
+  /* Darker with a slight spread */
+  .search-input {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* More vertical offset and spread */
+  }
+  
+  .search-input:focus {
+    outline: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.55); /* Darker focus shadow */
+  }
+
+  @media (max-width: 768px) {
+    
+
+    .container-fluid {
+      background-color: white;
+    }
+
+    .vanish {
+      display: none;
+    }
+
+
+    .mobile-menu-section {
+      display: block;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .mobile-menu-section h6 {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #333;
+      /* Adjust color */
+    }
+
+    .mobile-menu-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #eee;
+      text-decoration: none;
+      color: #555;
+      /* Adjust color */
+      width: 100%;
+    }
+
+    .mobile-menu-link i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      color: #777;
+      /* Adjust icon color */
+    }
+
+    .mobile-auth-links {
+      align-self: center;
+      font-size: 21px;
+    }
+    
+    .d-flex {
+      margin: 1.2rem 0 1rem 0;
+    }
+
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-place-of-worship"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-link "  href="/">Home</a> -->
+        <a class="nav-link vanish" href="/listings">Explore</a>
+      </div>
+      <div class="navbar-nav ms-auto ">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2 search-input " type="search" placeholder="Search destination">
+          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link vanish" id="add-listing" href="/listings/new">Add your Haven</a>
+
+        <div class="mobile-auth-links nav-link" >
+          <% if(!currUser){ %>
+            <a href="/signup">Sign up</a>
+            <a href="/login" >Log in</a>
+            <% } %>
+              <% if(currUser){ %>
+                <a href="/logout">Log out</a>
+                <% } %>
+        </div>
+
+        <div class="mobile-menu-section ">
+          <h6>More</h6>
+          <a href="/listings/new" class="mobile-menu-link "><i class="fa-solid fa-home"></i> List your property</a>
+          <a href="#" class="mobile-menu-link "><i class="fa-solid fa-indian-rupee-sign"></i> Indian rupee</a>
+        </div>
+
+        <div class="mobile-menu-section ">
+          <h6>Inspiration</h6>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-percent"></i> Deals</a>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-newspaper"></i> Travel articles</a>
+        </div>
+
+        <div class="mobile-menu-section ">
+          <h6>Help and support</h6>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-question-circle"></i> Contact Customer Service</a>
+        </div>
+
+        <div class="mobile-menu-section ">
+          <h6>Settings and legal</h6>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-info-circle"></i> About Havenly</a>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-users"></i><span>Become an affiliate</span></a>
+          <a href="#" class="mobile-menu-link"><i class="fa-solid fa-users"></i><span>Terms and conditions</span></a>
+        </div>
+        
+      </div>
+    </div>
+</nav>
